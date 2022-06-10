@@ -7,7 +7,7 @@
     "clean": "run-script-os",
     "clean:default": "rm -rf dist 2>/dev/null; rm -rf gui 2>/dev/null; rm -rf build 2>/dev/null; ",
     "clean:windows": "if exist dist rd /S /Q dist & if exist build rd /S /Q build & if exist gui rd /S /Q gui",
-    "dev": "parcel serve src/index.html --dist-dir gui & npx tailwindcss -i ./src/input.css -o ./gui/output.css --watch & ./venv-pywebview/python3 src/index.py",
+    "dev": "npx tailwindcss -i ./src/input.css -o ./gui/output.css --watch & parcel serve src/index.html --dist-dir gui & ./venv-pywebview/python3 src/index.py",
     "init": "npm install && run-script-os",
     "init:linux": "virtualenv -p python3 venv-pywebview && if [[ -z \\\"${KDE_FULL_SESSION}\\\" ]]; then npm run init:qt5; else npm run init:gtk; fi",
     "init:gtk": "sudo apt install libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-3.0 && ./venv-pywebview/bin/pip install pycairo pygobject -r requirements.txt",
