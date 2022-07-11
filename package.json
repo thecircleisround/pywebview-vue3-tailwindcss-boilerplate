@@ -2,18 +2,25 @@
   "name": "pywebview-vue3-tailwindcss",
   "version": "1.0.0",
   "description": "Build GUI applications with Python and Vue 3. A simple boilerplate based on pywebview.",
-  "scripts": {
-    "frontend:dev": "parcel build src/index.html --dist-dir gui --public-url .",
+    "scripts": {
+    "build": "npm run clean && npm run frontend:prod && run-script-os",
+    "build:macos": "./venv-pywebview/python build-macos.py py2app",
+    "frontend:dev": "parcel build src/index.html --dist-dir gui --public-url /",
     "clean": "run-script-os",
-    "clean:default": "rm -rf dist 2>/dev/null; rm -rf gui 2>/dev/null; rm -rf build 2>/dev/null; ",
+    "clean:default": "rm -rf dist 2>/dev/null; rm -rf gui 2>/dev/null; rm -rf build 2>/dev/null;",
     "clean:windows": "if exist dist rd /S /Q dist & if exist build rd /S /Q build & if exist gui rd /S /Q gui",
-    "dev": "npx tailwindcss -i ./src/input.css -o ./gui/output.css --watch & parcel serve src/index.html --dist-dir gui & ./venv-pywebview/python3 src/index.py",
+    "dev": "npx tailwindcss -i ./src/input.css -o ./gui/output.css  --watch & parcel serve src/index.html --dist-dir gui & ./venv-pywebview/python src/index.py",
     "init": "npm install && run-script-os",
+    "frontend:prod": "npx tailwindcss -i ./src/input.css -o ./gui/output.css && parcel build src/index.html --no-source-maps --dist-dir gui --public-url .",
     "init:linux": "virtualenv -p python3 venv-pywebview && if [[ -z \\\"${KDE_FULL_SESSION}\\\" ]]; then npm run init:qt5; else npm run init:gtk; fi",
     "init:gtk": "sudo apt install libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-3.0 && ./venv-pywebview/bin/pip install pycairo pygobject -r requirements.txt",
     "start": "npm run frontend:dev && run-script-os",
-    "start:default": "./venv-pywebview/python src/index.py",
+    "start:default": "./venv-pywebview/python src/backend/main.py",
     "start:windows": ".\\venv-pywebview\\Scripts\\python src\\index.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roundisthecircle/pywebview-vue3-boilerplate.git"
   },
   "keywords": [
     "pywebview",
@@ -38,7 +45,6 @@
     "@vitejs/plugin-vue": "^2.3.3",
     "parcel": "^2.6.0",
     "run-script-os": "^1.1.6",
-    "tailwindcss": "^3.1.1",
     "vite": "^2.9.9"
   }
 }
